@@ -325,7 +325,7 @@ export default function App() {
           <div className="container hero-content">
             <p className="eyebrow">Managed IT &amp; Cybersecurity</p>
             <h1>
-              Technology that keeps your business <em>headed north.</em>
+              Technology that keeps your business <em>headed North.</em>
             </h1>
             <p className="lead">
               NorthBound IT is your outsourced IT department. We monitor, secure, and support your
