@@ -447,6 +447,30 @@ export default function App() {
             <ContactForm />
           </div>
         </section>
+
+        <section id="certifications" className="certs">
+          <div className="container">
+            <div className="certs-head">
+              <p className="eyebrow">Credentials</p>
+              <h2>Certified experts you can trust</h2>
+              <p>Backed by years of experience and industry-leading security, audit, and networking credentials.</p>
+            </div>
+            <div className="cert-grid">
+              {[
+                ['soc2', 'SOC 2 Type 2'],
+                ['cissp', 'ISC2 CISSP'],
+                ['cism', 'ISACA CISM'],
+                ['cisa', 'ISACA CISA'],
+                ['caico', 'CAICO Lead CCA'],
+                ['ccnp', 'Cisco CCNP']
+              ].map(([file, alt]) => (
+                <div className="cert" key={file}>
+                  <img src={`${import.meta.env.BASE_URL}certs/${file}.png`} alt={alt} loading="lazy" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       </main>
 
       <footer className="footer">
