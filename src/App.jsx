@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import GhostFibers from './components/GhostFibers';
 
 const services = [
@@ -114,6 +114,36 @@ const reasons = [
   { stat: 'No lock-in', label: 'Month-to-month agreements available' }
 ];
 
+const slug = text =>
+  text
+    .toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+
+function NavDropdown({ label, href, items, open, onToggle, onNavigate }) {
+  return (
+    <div className={`dropdown${open ? ' open' : ''}`}>
+      <button type="button" className="dropdown-toggle" aria-expanded={open} onClick={onToggle}>
+        {label}
+        <svg viewBox="0 0 12 12" aria-hidden="true">
+          <path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        </svg>
+      </button>
+      <div className="dropdown-menu">
+        {items.map(item => (
+          <a key={item.title} href={`#${slug(item.title)}`} onClick={onNavigate}>
+            {item.title}
+          </a>
+        ))}
+        <a href={href} className="dropdown-all" onClick={onNavigate}>
+          View all {label.toLowerCase()} →
+        </a>
+      </div>
+    </div>
+  );
+}
+
 function Logo() {
   return (
     <a href="#top" className="logo" aria-label="NorthBound IT home">
@@ -197,11 +227,32 @@ function ContactForm() {
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const close = () => setMenuOpen(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const navRef = useRef(null);
+  const close = () => {
+    setMenuOpen(false);
+    setOpenDropdown(null);
+  };
+  const toggleDropdown = name => setOpenDropdown(current => (current === name ? null : name));
+
+  useEffect(() => {
+    const handlePointer = e => {
+      if (navRef.current && !navRef.current.contains(e.target)) setOpenDropdown(null);
+    };
+    const handleKey = e => {
+      if (e.key === 'Escape') setOpenDropdown(null);
+    };
+    document.addEventListener('pointerdown', handlePointer);
+    document.addEventListener('keydown', handleKey);
+    return () => {
+      document.removeEventListener('pointerdown', handlePointer);
+      document.removeEventListener('keydown', handleKey);
+    };
+  }, []);
 
   return (
     <>
-      <header className="nav">
+      <header className="nav" ref={navRef}>
         <div className="container nav-inner">
           <Logo />
           <button
@@ -215,8 +266,22 @@ export default function App() {
           </button>
           <nav className={menuOpen ? 'open' : ''}>
             <a href="#services" onClick={close}>Services</a>
-            <a href="#industries" onClick={close}>Industries</a>
-            <a href="#cybersecurity" onClick={close}>Cybersecurity</a>
+            <NavDropdown
+              label="Industries"
+              href="#industries"
+              items={industries}
+              open={openDropdown === 'industries'}
+              onToggle={() => toggleDropdown('industries')}
+              onNavigate={close}
+            />
+            <NavDropdown
+              label="Cybersecurity"
+              href="#cybersecurity"
+              items={security}
+              open={openDropdown === 'cybersecurity'}
+              onToggle={() => toggleDropdown('cybersecurity')}
+              onNavigate={close}
+            />
             <a href="#approach" onClick={close}>Approach</a>
             <a href="#why" onClick={close}>Why us</a>
             <a href="#contact" className="btn btn-small" onClick={close}>Get started</a>
@@ -301,7 +366,7 @@ export default function App() {
             </div>
             <div className="grid services">
               {industries.map(s => (
-                <article key={s.title} className="card">
+                <article key={s.title} id={slug(s.title)} className="card">
                   <Icon d={s.icon} />
                   <h3>{s.title}</h3>
                   <p>{s.body}</p>
@@ -320,7 +385,7 @@ export default function App() {
             </div>
             <div className="grid services">
               {security.map(s => (
-                <article key={s.title} className="card">
+                <article key={s.title} id={slug(s.title)} className="card">
                   <Icon d={s.icon} />
                   <h3>{s.title}</h3>
                   <p>{s.body}</p>
