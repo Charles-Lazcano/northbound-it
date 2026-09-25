@@ -34,6 +34,72 @@ const services = [
   }
 ];
 
+const industries = [
+  {
+    title: 'IT for Law Firms',
+    body: 'Secure document management, client confidentiality, and reliable access to case files and practice software.',
+    icon: 'M12 4v16M5 20h14M6 8h12M6 8l-3 6a3 3 0 006 0zM18 8l-3 6a3 3 0 006 0z'
+  },
+  {
+    title: 'IT for Commercial Real Estate',
+    body: 'Connected offices, property management platforms, and secure deal data across every site you manage.',
+    icon: 'M4 20V8l6-4v16M10 20V10h10v10M3 20h18M13 13h1M17 13h1M13 16h1M17 16h1'
+  },
+  {
+    title: 'IT for Healthcare',
+    body: 'HIPAA-ready infrastructure, EHR uptime, and protected patient data for practices and clinics.',
+    icon: 'M12 20s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.5-7 10-7 10zM9 11h6M12 8v6'
+  },
+  {
+    title: 'IT for Financial Services',
+    body: 'Controls that meet SEC, FINRA, and GLBA expectations, with the security your clients’ assets demand.',
+    icon: 'M4 20h16M5 10h14M12 4l8 4H4zM7 10v7M12 10v7M17 10v7'
+  },
+  {
+    title: 'IT for Professional Service Firms',
+    body: 'Collaboration tools, billing and project systems, and support that keeps billable hours on track.',
+    icon: 'M4 8h16v11H4zM9 8V5h6v3M4 13h16'
+  },
+  {
+    title: 'IT for Government & Defense',
+    body: 'Secure environments aligned with NIST 800-171, DFARS, and CMMC for contractors and public agencies.',
+    icon: 'M12 3l8 4v2H4V7zM6 9v8M10 9v8M14 9v8M18 9v8M3 20h18'
+  }
+];
+
+const security = [
+  {
+    title: 'vCISO',
+    body: 'A fractional Chief Information Security Officer to own your security strategy, policies, and risk program.',
+    icon: 'M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6zM12 9a2 2 0 110 4 2 2 0 010-4zM9 16c.5-1.5 1.6-2 3-2s2.5.5 3 2'
+  },
+  {
+    title: 'Managed Detection & Response',
+    body: 'Around-the-clock threat hunting and response that isolates attacks on endpoints before they spread.',
+    icon: 'M11 4a7 7 0 110 14 7 7 0 010-14zM20 20l-4-4M8 11h6M11 8v6'
+  },
+  {
+    title: 'Managed Security Services',
+    body: 'Firewalls, SIEM, email security, and vulnerability management run by a dedicated security team.',
+    icon: 'M4 6h16v5H4zM4 13h16v5H4zM7 8.5h.01M7 15.5h.01M11 8.5h6M11 15.5h6'
+  },
+  {
+    title: 'Managed Compliance & Assessments',
+    body: 'Gap assessments, risk analyses, and ongoing evidence collection for HIPAA, PCI, SOC 2, and more.',
+    icon: 'M9 4h6v3H9zM7 5H5v15h14V5h-2M9 13l2 2 4-4'
+  },
+  {
+    title: 'Cybersecurity Incident Response',
+    body: 'Rapid containment, forensics, and recovery when a breach or ransomware attack hits, plus a plan for next time.',
+    icon: 'M12 3l9 16H3zM12 10v4M12 17h.01'
+  },
+  {
+    title: 'CMMC Compliance Partner',
+    body: 'Readiness assessments, remediation, and documentation to help defense contractors achieve CMMC certification.',
+    icon: 'M12 3a6 6 0 110 12 6 6 0 010-12zM9 14l-2 7 5-3 5 3-2-7M10 9l1.5 1.5L14 8'
+  }
+];
+
 const steps = [
   { n: '01', title: 'Assess', body: 'We audit your network, devices, accounts, and security posture, then give you a plain-English report.' },
   { n: '02', title: 'Stabilize', body: 'We fix the urgent issues, standardize your setup, and deploy monitoring and protection across the board.' },
@@ -149,6 +215,8 @@ export default function App() {
           </button>
           <nav className={menuOpen ? 'open' : ''}>
             <a href="#services" onClick={close}>Services</a>
+            <a href="#industries" onClick={close}>Industries</a>
+            <a href="#cybersecurity" onClick={close}>Cybersecurity</a>
             <a href="#approach" onClick={close}>Approach</a>
             <a href="#why" onClick={close}>Why us</a>
             <a href="#contact" className="btn btn-small" onClick={close}>Get started</a>
@@ -214,6 +282,44 @@ export default function App() {
             </div>
             <div className="grid services">
               {services.map(s => (
+                <article key={s.title} className="card">
+                  <Icon d={s.icon} />
+                  <h3>{s.title}</h3>
+                  <p>{s.body}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="industries" className="section section-alt">
+          <div className="container">
+            <div className="section-head">
+              <p className="eyebrow">Industries</p>
+              <h2>IT built around how your industry works</h2>
+              <p>Every field has its own software, regulations, and risks. We know them, so you don’t have to explain them.</p>
+            </div>
+            <div className="grid services">
+              {industries.map(s => (
+                <article key={s.title} className="card">
+                  <Icon d={s.icon} />
+                  <h3>{s.title}</h3>
+                  <p>{s.body}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="cybersecurity" className="section">
+          <div className="container">
+            <div className="section-head">
+              <p className="eyebrow">IT Services · Cybersecurity</p>
+              <h2>Security that stays a step ahead</h2>
+              <p>From strategy to 24/7 response, layered protection for businesses that can’t afford a breach.</p>
+            </div>
+            <div className="grid services">
+              {security.map(s => (
                 <article key={s.title} className="card">
                   <Icon d={s.icon} />
                   <h3>{s.title}</h3>

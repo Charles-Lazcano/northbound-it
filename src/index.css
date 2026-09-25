@@ -461,3 +461,17 @@ a {
     grid-template-columns: 1fr;
   }
 }
+
+/* Keep section headings clear of the fixed nav when jumping via tabs */
+section[id] {
+  scroll-margin-top: 68px;
+}
+
+@media (min-width: 721px) and (max-width: 1040px) {
+  .nav nav {
+    gap: 18px;
+  }
+  .nav nav a {
+    font-size: 0.88rem;
+  }
+}
